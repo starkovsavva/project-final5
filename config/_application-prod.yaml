@@ -2,8 +2,13 @@
 app:
   host-url: http://localhost
 spring:
+  config:
+    import: optional:file:.env[.properties]
   datasource:
-    url: jdbc:postgresql://localhost:5432/jira
-    username: jira
-    password: JiraRush
+#    url: jdbc:postgresql://localhost:5432/jira
+    url: ${DB_URL}
+#    username: jira
+    username: ${DB_USERNAME}
+#    password: JiraRush
+    password: ${DB_PASSWORD}
 
