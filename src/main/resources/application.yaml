@@ -11,6 +11,7 @@ app:
     max-pool-size: 100
 
 spring:
+
   config:
     import: optional:file:.env[.properties]
   init:
@@ -39,7 +40,7 @@ spring:
     password: ${DB_PASSWORD}
 # env
   liquibase:
-    changeLog: "classpath:db/changelog.sql"
+    changeLog: "classpath:db/changelog-master.sql"
 
   # Jackson Fields Serialization
   jackson:

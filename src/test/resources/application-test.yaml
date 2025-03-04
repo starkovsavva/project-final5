@@ -1,6 +1,9 @@
 spring.cache.type: none
 
 spring:
+  liquibase:
+    enabled: true
+    change-log: "classpath:db/changelog-test.sql"
   config:
     activate:
       on-profile: test
