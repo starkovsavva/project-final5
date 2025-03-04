@@ -15,26 +15,36 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @UtilityClass
 public class FileUtil {
     private static final String ATTACHMENT_PATH = "./attachments/%s/";
 
-    public static void upload(MultipartFile multipartFile, String directoryPath, String fileName) {
-        if (multipartFile.isEmpty()) {
-            throw new IllegalRequestDataException("Select a file to upload.");
+// refactor
+public static void upload(MultipartFile multipartFile, String directoryPath, String fileName) {
+    if (multipartFile.isEmpty()) {
+        throw new IllegalRequestDataException("Select a file to upload.");
+    }
+
+    // Создаем путь к директории
+    Path dirPath = Paths.get(directoryPath);
+
+    try {
+        // Создаем директорию, если она не существует
+        if (!Files.exists(dirPath)) {
+            Files.createDirectories(dirPath);
         }
 
-        File dir = new File(directoryPath);
-        if (dir.exists() || dir.mkdirs()) {
-            File file = new File(directoryPath + fileName);
-            try (OutputStream outStream = new FileOutputStream(file)) {
-                outStream.write(multipartFile.getBytes());
-            } catch (IOException ex) {
-                throw new IllegalRequestDataException("Failed to upload file" + multipartFile.getOriginalFilename());
-            }
-        }
+        // Создаем путь к файлу
+        Path filePath = dirPath.resolve(fileName);
+
+        // Копируем содержимое MultipartFile в файл
+        Files.copy(multipartFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+    } catch (IOException ex) {
+        throw new IllegalRequestDataException("Failed to upload file: " + multipartFile.getOriginalFilename(), ex);
     }
+}
 
     public static Resource download(String fileLink) {
         Path path = Paths.get(fileLink);
