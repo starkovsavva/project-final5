@@ -1,8 +1,24 @@
 spring.cache.type: none
+
 spring:
+  config:
+    activate:
+      on-profile: test
   init:
     mode: always
+
   datasource:
-    url: jdbc:postgresql://localhost:5433/jira-test
-    username: jira
-    password: JiraRush
+
+    url: jdbc:h2:mem:test
+    username: test
+    password: test
+    driver-class-name: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop # Автоматически создавать и удалять схему
+  h2:
+    console:
+      enabled: true # Включить консоль H2 (для отладки)
+      path: /h2-console # URL для доступа к консоли
+

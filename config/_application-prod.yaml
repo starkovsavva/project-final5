@@ -2,6 +2,8 @@
 app:
   host-url: http://localhost
 spring:
+  profiles:
+    include: test, test-h2
   config:
     import: optional:file:.env[.properties]
   datasource:
