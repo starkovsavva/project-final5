@@ -22,7 +22,7 @@ spring:
 
     # validate db by model
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
 
     properties:
       #  http://docs.jboss.org/hibernate/orm/5.3/userguide/html_single/Hibernate_User_Guide.html#configurations
@@ -127,6 +127,8 @@ spring:
 
 logging:
   level:
+    hibernate:
+      sql: debug
     root: WARN
     com.javarush.jira: DEBUG
     com.javarush.jira.common.config.MvcConfig: WARN
