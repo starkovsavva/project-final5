@@ -9,6 +9,8 @@ import com.javarush.jira.profile.internal.model.Profile;
 import java.util.Collections;
 import java.util.Set;
 
+import static com.javarush.jira.login.internal.web.UserTestData.ADMIN_ID;
+
 public class ProfileTestData {
     public static MatcherFactory.Matcher<Profile> PROFILE_MATCHER =
             MatcherFactory.usingIgnoringFieldsComparator(Profile.class, "user");
@@ -88,4 +90,7 @@ public class ProfileTestData {
                 Collections.emptySet(),
                 Set.of(new ContactTo("tg", "<script>alert(123)</script>")));
     }
+
+
+
 }
